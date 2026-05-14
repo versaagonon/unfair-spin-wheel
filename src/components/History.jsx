@@ -28,7 +28,7 @@ const History = ({ history, onClear }) => {
         <AnimatePresence mode="popLayout">
           {history.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-48 text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
                 <HistoryIcon className="w-6 h-6 text-text-dim" />
               </div>
               <div>

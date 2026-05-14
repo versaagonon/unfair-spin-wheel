@@ -29,7 +29,7 @@ const ResultModal = ({ result, onClose, spinCount }) => {
 
       {/* Modal Card */}
       <motion.div
-        className="relative w-full max-w-lg bg-sidebar border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+        className="relative w-full max-w-lg bg-sidebar border border-white/10 rounded-xl overflow-hidden shadow-2xl"
         initial={{ scale: 0.9, y: 20, opacity: 0 }}
         animate={{ scale: 1, y: 0, opacity: 1 }}
         exit={{ scale: 0.9, y: 20, opacity: 0 }}
@@ -55,7 +55,7 @@ const ResultModal = ({ result, onClose, spinCount }) => {
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, type: 'spring' }}
-            className="w-24 h-24 rounded-3xl mb-8 flex items-center justify-center shadow-2xl relative"
+            className="w-24 h-24 rounded-2xl mb-8 flex items-center justify-center shadow-2xl relative"
             style={{ background: `linear-gradient(135deg, ${color}, #000000)` }}
           >
             <Award className="w-12 h-12 text-white" />
@@ -76,7 +76,7 @@ const ResultModal = ({ result, onClose, spinCount }) => {
           </div>
 
           {/* Verification Info */}
-          <div className="w-full flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 mb-10">
+          <div className="w-full flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 mb-10">
             <div className="flex-1 text-left">
               <p className="text-text-dim text-[10px] font-bold uppercase tracking-widest">ID Pemenang</p>
               <p className="text-text-secondary font-mono text-[11px] mt-0.5">{result.id.split('-')[0].toUpperCase()}</p>
@@ -92,14 +92,14 @@ const ResultModal = ({ result, onClose, spinCount }) => {
           <div className="w-full grid grid-cols-2 gap-4">
             <button
               onClick={onClose}
-              className="btn-secondary py-4 rounded-2xl text-white font-bold text-sm flex items-center justify-center gap-2 group"
+              className="btn-secondary py-4 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 group"
             >
               <Share2 className="w-4 h-4 text-text-dim group-hover:text-accent-primary" />
               Simpan Hasil
             </button>
             <button
               onClick={onClose}
-              className="btn-primary py-4 rounded-2xl text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-accent-primary/20"
+              className="btn-primary py-4 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg shadow-accent-primary/20"
             >
               <RotateCcw className="w-4 h-4" />
               Lanjut Undian
