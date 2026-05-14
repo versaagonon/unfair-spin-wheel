@@ -9,14 +9,14 @@ const History = ({ history, onClear }) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <HistoryIcon className="w-5 h-5 text-accent-primary" />
-          <h2 className="text-white font-bold text-lg font-heading">Journal</h2>
+          <h2 className="text-white font-bold text-lg font-heading">Riwayat</h2>
         </div>
         {history.length > 0 && (
           <div className="flex gap-2">
             <button
               onClick={onClear}
               className="p-2 text-text-dim hover:text-rose-400 transition-colors rounded-lg hover:bg-rose-400/5"
-              title="Clear Journal"
+              title="Hapus Riwayat"
             >
               <Trash2 className="w-4 h-4" />
             </button>
@@ -32,8 +32,8 @@ const History = ({ history, onClear }) => {
                 <HistoryIcon className="w-6 h-6 text-text-dim" />
               </div>
               <div>
-                <p className="text-text-secondary text-sm font-medium">No records found</p>
-                <p className="text-text-dim text-[11px] uppercase tracking-wider font-bold">Initiate a spin to start recording</p>
+                <p className="text-text-secondary text-sm font-medium">Belum ada data</p>
+                <p className="text-text-dim text-[11px] uppercase tracking-wider font-bold">Mulai undian untuk melihat hasil</p>
               </div>
             </div>
           ) : (
@@ -64,7 +64,7 @@ const History = ({ history, onClear }) => {
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-[10px] text-accent-primary font-bold px-2 py-0.5 rounded bg-accent-primary/10">RECORDED</span>
+                    <span className="text-[10px] text-accent-primary font-bold px-2 py-0.5 rounded bg-accent-primary/10">PEMENANG</span>
                   </div>
                 </motion.div>
               );
@@ -76,7 +76,7 @@ const History = ({ history, onClear }) => {
       {history.length > 0 && (
         <button className="w-full py-3 rounded-xl border border-dashed border-white/10 text-text-dim hover:text-text-secondary hover:border-white/20 transition-all text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2">
           <Download className="w-3.5 h-3.5" />
-          Export Session Data
+          Unduh Data Riwayat
         </button>
       )}
     </div>

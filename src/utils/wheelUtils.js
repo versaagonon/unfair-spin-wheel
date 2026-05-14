@@ -1,4 +1,4 @@
-// Premium SaaS Palette
+// Palette Warna Premium untuk Giveaway
 export const SEGMENT_COLORS = [
   { bg: '#6366f1', text: '#ffffff', border: '#4f46e5' }, // Indigo
   { bg: '#8b5cf6', text: '#ffffff', border: '#7c3aed' }, // Violet
@@ -14,15 +14,16 @@ export const SEGMENT_COLORS = [
   { bg: '#a855f7', text: '#ffffff', border: '#9333ea' }, // Purple
 ];
 
+// Daftar Peserta Default (Bahasa Indonesia)
 export const DEFAULT_ITEMS = [
-  'Tech Pack',
-  'Exclusive Pass',
-  'Starter Kit',
-  'Premium Plus',
-  'Silver Tier',
-  'Gold Access',
-  'Platinum Pack',
-  'Basic Tier',
+  'Andi Setiawan',
+  'Budi Santoso',
+  'Citra Lestari',
+  'Dewi Sartika',
+  'Eko Prasetyo',
+  'Fany Rahmawati',
+  'Gilang Ramadhan',
+  'Hani Fitriani',
 ];
 
 export function easeOutCubic(t) {
@@ -31,12 +32,4 @@ export function easeOutCubic(t) {
 
 export function getRandomIndex(length) {
   return Math.floor(Math.random() * length);
-}
-
-export function formatTime(date) {
-  return new Intl.DateTimeFormat('id-ID', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-  }).format(date);
 }
