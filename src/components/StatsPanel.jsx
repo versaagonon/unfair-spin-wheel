@@ -86,13 +86,7 @@ const StatsPanel = ({
           </AnimatePresence>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
-          <StatCard 
-            icon={Hash} 
-            label="Total" 
-            value={spinCount} 
-            colorClass="text-accent-primary"
-          />
+        <div className="grid grid-cols-1 gap-3">
           <StatCard 
             icon={PieChart} 
             label="Peserta" 

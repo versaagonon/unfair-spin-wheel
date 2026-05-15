@@ -117,19 +117,14 @@ const SpinWheel = ({ items, isSpinning, winnerIndex, onSpinComplete, onSpin }) =
 
     spinningRef.current = true;
     
-    const duration = 8000; // Longer for more precision
-    const extraSpins = 10;
+    const duration = 10000; // Longer duration for more suspense
+    const extraSpins = 12; // More spins for higher initial speed
     const startRotation = currentRotationRef.current;
     
     // Correct Math to land winnerIndex at the TOP (-PI/2)
-    // 1. Current position relative to 2PI: currentRotationRef.current % 2PI
-    // 2. Target position relative to 2PI: - (winnerIndex + 0.5) * segmentAngle
-    // 3. Delta needed: (Target - Current) + (Extra Spins)
-    
     const currentNorm = startRotation % (2 * Math.PI);
     const targetNorm = - (winnerIndex + 0.5) * segmentAngle;
     
-    // Ensure targetAngleRad is positive and results in clockwise rotation
     let delta = targetNorm - currentNorm;
     while (delta < 0) delta += 2 * Math.PI;
     const totalRotation = delta + (extraSpins * 2 * Math.PI);
@@ -140,7 +135,7 @@ const SpinWheel = ({ items, isSpinning, winnerIndex, onSpinComplete, onSpin }) =
       const elapsed = time - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Quintic ease out
+      // Quintic ease out for a silky smooth deceleration
       const eased = 1 - Math.pow(1 - progress, 5);
       const rotation = startRotation + totalRotation * eased;
       

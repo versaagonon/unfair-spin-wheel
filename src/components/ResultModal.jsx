@@ -80,7 +80,7 @@ const ResultModal = ({ result, onClose, spinCount }) => {
               {result.item}
             </h2>
             <p className="text-text-dim text-sm font-medium">
-              Selamat! Kamu terpilih pada undian ke-{spinCount}
+              Selamat kamu terpilih pemenang undian
             </p>
           </div>
 
