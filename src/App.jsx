@@ -3,9 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SpinWheel from './components/SpinWheel';
 import ResultModal from './components/ResultModal';
 import StatsPanel from './components/StatsPanel';
+import SettingsModal from './components/SettingsModal';
 import ConfettiEffect from './components/ConfettiEffect';
 import { DEFAULT_ITEMS, SEGMENT_COLORS, getRandomIndex } from './utils/wheelUtils';
-import { Bell, Search, User, Sliders, Disc } from 'lucide-react';
+import { Search, Sliders, Disc } from 'lucide-react';
 
 export default function App() {
   const [items, setItems] = useState(DEFAULT_ITEMS);
@@ -19,28 +20,41 @@ export default function App() {
   const [confettiColor, setConfettiColor] = useState('#6366f1');
   const [spinCount, setSpinCount] = useState(0);
   
+  // Settings State
+  const [showSettings, setShowSettings] = useState(false);
+  const [gameTitle, setGameTitle] = useState('Sistem Pengundian');
+  const [forcedWinner, setForcedWinner] = useState({ name: null, photo: null });
+
   const spinCountRef = useRef(0);
 
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.code === 'Space' && !isSpinning && !showModal) {
+      if (e.code === 'Space' && !isSpinning && !showModal && !showSettings) {
         e.preventDefault();
         handleSpin();
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [isSpinning, showModal, items]);
+  }, [isSpinning, showModal, showSettings, items]);
 
   const handleSpin = useCallback(() => {
     if (isSpinning || items.length < 2) return;
-    const randomIndex = getRandomIndex(items.length);
+    
+    let randomIndex;
+    // Check if there is a forced winner and they are still in the items list
+    if (forcedWinner.name && items.includes(forcedWinner.name)) {
+      randomIndex = items.indexOf(forcedWinner.name);
+    } else {
+      randomIndex = getRandomIndex(items.length);
+    }
+
     setPendingWinner(randomIndex);
     setWinnerIndex(randomIndex);
     setIsSpinning(true);
     setResult(null);
     setShowModal(false);
-  }, [isSpinning, items]);
+  }, [isSpinning, items, forcedWinner]);
 
   const handleSpinComplete = useCallback(() => {
     const idx = pendingWinner;
@@ -54,6 +68,8 @@ export default function App() {
       index: idx,
       timestamp,
       id: `${timestamp}-${Math.random()}`,
+      // Attach photo if the winner was forced and photo was uploaded
+      photo: (forcedWinner.name === item) ? forcedWinner.photo : null
     };
 
     setResult(newResult);
@@ -65,7 +81,7 @@ export default function App() {
       setConfettiTrigger(v => !v);
       setTimeout(() => setShowModal(true), 400);
     }, 400);
-  }, [pendingWinner, items]);
+  }, [pendingWinner, items, forcedWinner]);
 
   return (
     <div className="flex flex-col min-h-screen bg-main text-text-primary">
@@ -81,7 +97,7 @@ export default function App() {
           </div>
           <div className="h-8 w-px bg-white/10 hidden md:block" />
           <span className="hidden md:block text-xs font-bold text-text-dim uppercase tracking-widest">
-            Sistem Pengundian
+            {gameTitle}
           </span>
         </div>
 
@@ -95,7 +111,12 @@ export default function App() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <button className="p-2.5 text-text-secondary hover:text-white transition-colors bg-white/5 rounded-lg border border-white/5"><Sliders className="w-4 h-4" /></button>
+            <button 
+              onClick={() => setShowSettings(true)}
+              className="p-2.5 text-text-secondary hover:text-white transition-colors bg-white/5 rounded-lg border border-white/5"
+            >
+              <Sliders className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </header>
@@ -104,9 +125,8 @@ export default function App() {
       <main className="flex-1 px-12 pt-4 pb-10 overflow-hidden flex items-start justify-center">
         <div className="max-w-full w-full flex flex-col xl:flex-row gap-12 items-start justify-between h-full pt-6">
           
-          {/* SPIN WHEEL (CENTRAL - SHIFTED LEFT & UP) */}
+          {/* SPIN WHEEL */}
           <div className="flex-[1.5] flex flex-col items-center justify-start pt-8 relative">
-            {/* Background Glow Effect */}
             <div className="absolute inset-0 bg-accent-primary/5 blur-[120px] rounded-full -z-10" />
             
             <motion.div
@@ -118,13 +138,14 @@ export default function App() {
                 items={items} 
                 isSpinning={isSpinning} 
                 winnerIndex={winnerIndex} 
-                onSpinComplete={handleSpinComplete} 
+                onSpinComplete={handleSpinComplete}
+                onSpin={handleSpin}
               />
             </motion.div>
           </div>
 
-          {/* CONTROL CENTER (FLOATING) */}
-          <div className="w-full xl:w-[450px]">
+          {/* CONTROL CENTER */}
+          <div className="w-full xl:w-[380px]">
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
@@ -147,6 +168,18 @@ export default function App() {
 
       {/* OVERLAYS */}
       <AnimatePresence>
+        {showSettings && (
+          <SettingsModal 
+            isOpen={showSettings}
+            onClose={() => setShowSettings(false)}
+            gameTitle={gameTitle}
+            setGameTitle={setGameTitle}
+            items={items}
+            forcedWinner={forcedWinner}
+            setForcedWinner={setForcedWinner}
+          />
+        )}
+        
         {showModal && (
           <ResultModal 
             result={result} 

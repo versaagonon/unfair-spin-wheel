@@ -58,8 +58,17 @@ const ResultModal = ({ result, onClose, spinCount }) => {
             className="w-24 h-24 rounded-2xl mb-8 flex items-center justify-center shadow-2xl relative"
             style={{ background: `linear-gradient(135deg, ${color}, #000000)` }}
           >
-            <Award className="w-12 h-12 text-white" />
-            <div className="absolute -bottom-2 -right-2 bg-emerald-500 p-1.5 rounded-full border-4 border-sidebar">
+            <div className="absolute inset-0 rounded-2xl overflow-hidden border border-white/10">
+              {result.photo ? (
+                <img src={result.photo} alt="Winner" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <Award className="w-12 h-12 text-white" />
+                </div>
+              )}
+            </div>
+            
+            <div className="absolute -bottom-2 -right-2 bg-emerald-500 p-1.5 rounded-full border-4 border-sidebar z-20 shadow-xl">
               <ShieldCheck className="w-4 h-4 text-white" />
             </div>
           </motion.div>

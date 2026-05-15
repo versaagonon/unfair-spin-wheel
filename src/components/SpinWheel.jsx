@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { SEGMENT_COLORS } from '../utils/wheelUtils';
 
-const SpinWheel = ({ items, isSpinning, winnerIndex, onSpinComplete }) => {
+const SpinWheel = ({ items, isSpinning, winnerIndex, onSpinComplete, onSpin }) => {
   const canvasRef = useRef(null);
   const currentRotationRef = useRef(0);
   const animationRef = useRef(null);
@@ -184,7 +184,10 @@ const SpinWheel = ({ items, isSpinning, winnerIndex, onSpinComplete }) => {
           <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[15px] border-t-white" />
         </motion.div>
       </div>
-      <div className="relative p-6 flex items-center justify-center">
+      <div 
+        className={`relative p-6 flex items-center justify-center ${!isSpinning ? 'cursor-pointer' : 'cursor-default'}`}
+        onClick={!isSpinning ? onSpin : undefined}
+      >
         <canvas ref={canvasRef} width={550} height={550} className="max-w-full h-auto drop-shadow-2xl" />
       </div>
     </div>

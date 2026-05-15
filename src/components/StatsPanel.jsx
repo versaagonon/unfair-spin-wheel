@@ -63,14 +63,21 @@ const StatsPanel = ({
                 key={result.id}
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col"
+                className="flex items-center gap-4"
               >
-                <div className="text-2xl font-black text-white font-heading truncate uppercase tracking-tight">
-                  {result.item}
-                </div>
-                <div className="flex items-center gap-2 text-[10px] text-text-dim font-bold uppercase mt-1">
-                  <Calendar className="w-3 h-3" />
-                  Baru Saja
+                {result.photo && (
+                  <div className="w-12 h-12 rounded-xl overflow-hidden border border-white/10 shadow-lg">
+                    <img src={result.photo} alt="Winner" className="w-full h-full object-cover" />
+                  </div>
+                )}
+                <div className="flex flex-col">
+                  <div className="text-2xl font-black text-white font-heading truncate uppercase tracking-tight leading-tight">
+                    {result.item}
+                  </div>
+                  <div className="flex items-center gap-2 text-[10px] text-text-dim font-bold uppercase mt-1">
+                    <Calendar className="w-3 h-3" />
+                    Baru Saja
+                  </div>
                 </div>
               </motion.div>
             ) : (
